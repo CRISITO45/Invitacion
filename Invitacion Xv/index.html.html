@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Priscila XV Años </title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --highlight: #922bb5;
+    }
+
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: #f3d9ff;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    header {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      background: url('foto1.jpg') no-repeat center center/cover;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 1;
+      z-index: -1;
+    }
+
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4em;
+      color: white;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+      animation: fadeIn 2s ease-in-out forwards;
+      margin-bottom: 15px;
+    }
+
+    header h2 {
+      font-size: 2em;
+      color: white;
+      padding: 10px 20px;
+      border: 3px solid var(--highlight);
+      border-radius: 12px;
+      display: inline-block;
+      margin-top: 10px;
+      animation: fadeIn 3s ease-in-out forwards;
+    }
+
+    .content {
+      padding: 50px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section {
+      margin: 50px 0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+      position: relative;
+    }
+
+    .section:not(:last-child)::after {
+      content: "";
+      display: block;
+      width: 60%;
+      height: 3px;
+      background: var(--highlight);
+      margin: 30px auto 0 auto;
+      border-radius: 5px;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-family: 'Great Vibes', cursive;
+      color: var(--highlight);
+      font-size: 2.4em;
+      margin-bottom: 20px;
+    }
+
+    .section p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--highlight);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 30px;
+      margin-top: 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 1em;
+    }
+
+    .btn:hover {
+      background-color: #7b1fa2;
+      transform: scale(1.05);
+    }
+
+    /* Botón de música */
+    .audio-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--highlight);
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5em;
+      z-index: 1000;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Animación de vibración para botón de música */
+    @keyframes vibrate {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-2px); }
+      100% { transform: translateX(2px); }
+    }
+
+    .playing {
+      animation: vibrate 0.3s linear infinite;
+    }
+
+    .confirmacion {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.6em;
+      color: var(--highlight);
+      margin: 20px 0;
+      animation: fadeIn 3s ease-in-out infinite alternate;
+    }
+
+    .final-img {
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 15px;
+      display: block;
+    }
+
+    .fade-img {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
+
+    .fade-img.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .regalo-img {
+      animation: vibrate 0.3s linear infinite;
+      width: 100px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .countdown {
+      background-color: white;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      margin: 20px auto;
+      display: inline-flex;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+      font-size: 1.1em;
+    }
+
+    .countdown .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 54px;
+    }
+
+    .countdown .unit span {
+      font-size: 0.75em;
+      color: var(--highlight);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .countdown .unit strong {
+      font-size: 1.6em;
+      font-weight: 700;
+      color: #222;
+      letter-spacing: 0.5px;
+    }
+
+    .countdown-wrapper {
+      text-align: center;
+    }
+
+    .countdown-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2em;
+      color: var(--highlight);
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 3em; }
+      .section h2 { font-size: 1.7em; }
+      .countdown { font-size: 1em; gap: 8px; padding: 10px; }
+      .countdown .unit strong { font-size: 1.2em; }
+      .final-img { width: 90%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎵 Música -->
+  <button class="audio-control playing" onclick="toggleAudio()">⏸️</button>
+  <audio id="bg-music" autoplay loop>
+    <source src="Luis Miguel - La Mentira (Karaoke).mp3" type="audio/mpeg" />
+  </audio>
+
+  <header>
+    <h1> Priscila</h1>
+    <h2> XV Años</h2>
+  </header>
+
+  <div class="content">
+    <div class="section">
+      <p>“Los sueños que guardé de niña se convierten hoy en ilusiones nuevas.<br>
+        Este día marca el inicio de una etapa maravillosa en mi vida.<br>— Priscila”</p>
+    </div>
+
+    <div class="section">
+      <h2>Mis Padres</h2>
+      <p>José Jesús Rodríguez Senday e Irma Gloria Aguirre Peral</p>
+      <h2>Mis Padrinos</h2>
+      <p>Juan Emigdio Saldaña Mendivil y Luz Imelda Trejo Sánchez</p>
+    </div>
+
+    <div class="section">
+      <h2>Misa</h2>
+      <p>25 de septiembre de 2025 - 6:30 PM<br>Catedral Santuario de Guadalupe</p>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Calle+Latinos+193,+Centro,+84030+Heroica+Nogales,+Sonora" target="_blank">VER UBICACIÓN</a>
+    </div>
+
+    <div class="section">
+      <h2>Recepción</h2>
+      <p>26 de septiembre de 2025 - 8:45 PM a 2:00 AM<br>Salón Pedregal, Ave. de los Nogales #614, Colinas del Yaqui</p>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Ave+de+los+Nogales+614,+Colinas+del+Yaqui,+84000+Heroica+Nogales,+Sonora" target="_blank">VER UBICACIÓN</a>
+    </div>
+
+    <div class="section">
+      <h2>Cena</h2>
+      <p>10:30 PM – 11:00 PM</p>
+    </div>
+
+    <div class="section">
+      <h2>Dress Code</h2>
+      <p>Formal o Vaquero<br>Colores reservados: lila, rosa y plateado</p>
+    </div>
+
+    <div class="section">
+      <h2>Sugerencias de Regalo</h2>
+      <p>Tu presencia es el mejor regalo. Pero si deseas hacerme un obsequio, puede ser en efectivo o en tarjeta.</p>
+      <img src="regalo.jpg" alt="Imagen regalo vibrante" class="regalo-img" />
+    </div>
+
+    <div class="section">
+      <div class="confirmacion">Por favor, haznos saber si podrás asistir:</div>
+      <a class="btn" href="https://wa.me/526311111759?text=Confirmo%20mi%20asistencia%20a%20los%20XV%20años%20de%20Priscila" target="_blank">CLICK AQUÍ</a>
+      <p class="confirmacion" style="margin-top: 15px;">¡Esperamos contar con su presencia!</p>
+    </div>
+
+    <div class="section">
+      <div class="countdown-wrapper">
+        <div class="countdown-title">Faltan</div>
+        <div class="countdown" id="countdown"></div>
+      </div>
+    </div>
+
+    <div class="section fade-img">
+      <img src="foto3.jpg" class="final-img" alt="Foto final decorativa" />
+    </div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    const button = document.querySelector('.audio-control');
+    let playing = true;
+
+    // Intentar reproducir al cargar la página
+    window.addEventListener('load', () => {
+      audio.play().catch(() => {
+        playing = false;
+        button.textContent = '▶️';
+        button.classList.remove('playing');
+      });
+    });
+
+    function toggleAudio() {
+      if (playing) {
+        audio.pause();
+        button.textContent = '▶️';
+        button.classList.remove('playing');
+      } else {
+        audio.play();
+        button.textContent = '⏸️';
+        button.classList.add('playing');
+      }
+      playing = !playing;
+    }
+
+    // Animaciones scroll
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => observer.observe(section));
+
+    const fadeImages = document.querySelectorAll('.fade-img');
+    fadeImages.forEach(img => observer.observe(img));
+
+    // Contador regresivo
+    function countdown() {
+      const eventDate = new Date("September 25, 2025 18:30:00").getTime();
+      const now = new Date().getTime();
+      const timeRemaining = eventDate - now;
+
+      const el = document.getElementById("countdown");
+
+      if (timeRemaining <= 0) {
+        clearInterval(interval);
+        el.innerHTML = '<div style="padding:10px 14px; font-weight:700;">¡Es hora de celebrar!</div>';
+        return;
+      }
+
+      const days = String(Math.floor(timeRemaining / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      const hours = String(Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      const minutes = String(Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      const seconds = String(Math.floor((timeRemaining % (1000 * 60)) / 1000)).padStart(2, '0');
+
+      el.innerHTML = `
+        <div class="unit"><span>Días</span><strong>${days}</strong></div>
+        <div class="unit"><span>Horas</span><strong>${hours}</strong></div>
+        <div class="unit"><span>Minutos</span><strong>${minutes}</strong></div>
+        <div class="unit"><span>Segundos</span><strong>${seconds}</strong></div>
+      `;
+    }
+
+    const interval = setInterval(countdown, 1000);
+    countdown();
+  </script>
+</body>
+</html>
